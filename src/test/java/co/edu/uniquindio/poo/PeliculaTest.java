@@ -1,0 +1,59 @@
+package co.edu.uniquindio.poo;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.time.LocalDate;
+import java.util.logging.Logger;
+
+import org.junit.jupiter.api.Test;
+
+public class PeliculaTest {
+    private static final Logger LOG = Logger.getLogger(PeliculaTest.class.getName());
+
+    @Test
+    public void registarPelicula(){
+        LOG.info("Inicia la prueba de registarPelicula");
+        Persona actor1 = new Actor("Andrés", "Rodríguez", LocalDate.now().minusYears(20), "Colombia");
+        Persona director1 = new Director("Samuel", "Zuluaga", LocalDate.now().minusYears(19), "Colombia");
+        Persona guionista1 = new Guionista("Adriana", "Pineda", LocalDate.now().minusYears(19), "Colombia");
+        Persona editor1 = new Editor("Katerine", "Gonzalez", LocalDate.now().minusYears(19), "Colombia");
+        Pelicula pelicula1 = new Pelicula("Secretos ocultos", "Sinopsis", 2017, Genero.DRAMA, "España");
+        Trailer trailer1 = new Trailer(pelicula1);
+        pelicula1.registarActor(actor1);
+        pelicula1.registarDirector(director1);
+        pelicula1.registarGuionista(guionista1);
+        pelicula1.agregarTrailer(trailer1);
+        trailer1.registrarEditor(editor1);
+        assertTrue(pelicula1.getActores().contains(actor1));
+        assertTrue(pelicula1.getDirectores().contains(director1));
+        assertTrue(pelicula1.getGuionistas().contains(guionista1));
+        assertTrue(pelicula1.getTrailers().contains(trailer1));
+        assertEquals(1, pelicula1.getActores().size());
+        assertEquals(1, pelicula1.getDirectores().size());
+        assertEquals(1, pelicula1.getGuionistas().size());
+        assertEquals(1, pelicula1.getTrailers().size());
+        LOG.info("Finaliza la prueba de registarPelicula");
+    }
+
+    @Test
+    public void peliculaSinDirector(){
+        LOG.info("Inicia la prueba de peliculaSinDirector");
+        Persona actor1 = new Actor("Andrés", "Rodríguez", LocalDate.now().minusYears(20), "Colombia");
+        Persona guionista1 = new Guionista("Adriana", "Pineda", LocalDate.now().minusYears(19), "Colombia");
+        Persona editor1 = new Editor("Katerine", "Gonzalez", LocalDate.now().minusYears(19), "Colombia");
+        
+        assertThrows(Throwable.class,()-> new Pelicula("Secretos ocultos", "Sinopsis", 2017, Genero.DRAMA, "España"));
+        Persona director1 = new Director("Samuel", "Zuluaga", LocalDate.now().minusYears(19), "Colombia");
+        Pelicula pelicula1 = new Pelicula("Secretos ocultos", "Sinopsis", 2017, Genero.DRAMA, "España");
+        Trailer trailer1 = new Trailer(pelicula1);
+        pelicula1.registarActor(actor1);
+        pelicula1.registarGuionista(guionista1);
+        pelicula1.agregarTrailer(trailer1);
+        trailer1.registrarEditor(editor1);
+        assertThrows(Throwable.class,()->pelicula1.registarDirector(director1));
+        LOG.info("Finaliza la prueba de peliculaSinDirector");
+    }
+}
+

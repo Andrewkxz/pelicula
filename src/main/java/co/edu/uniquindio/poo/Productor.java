@@ -6,12 +6,13 @@ public class Productor extends Persona implements Participante{
 
     public Productor(String nombre, String apellido, LocalDate fechaNacimiento, String nacionalidad) {
         super(nombre, apellido, fechaNacimiento, nacionalidad);
-        
-    }
-
-    @Override
-    public void participaComo() {
-        System.out.println("Productor");
     }
     
+    @Override
+    public String getNombreCompleto() {
+        return getNombre() + " " + getApellido();
+    }
+
+
+
 }
