@@ -55,7 +55,7 @@ public class Pelicula{
         this.trailers = new LinkedList<>();
         this.participantes = new LinkedList<>();
 
-        assert directores.isEmpty() || guionistas.isEmpty() : "Se requiere al menos un director y un guionista";
+        assert directores.size() < 1 || guionistas.size() < 1 : "Se requiere al menos un director y un guionista";
     }
 
     public void registrarParticipante(Participante participante){
